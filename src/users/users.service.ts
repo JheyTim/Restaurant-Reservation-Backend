@@ -26,6 +26,11 @@ export class UsersService {
     return this.userModel.findById(id).exec();
   }
 
+  // Find user by email
+  async findUserByEmail(email: string): Promise<User | null> {
+    return this.userModel.findOne({ email }).exec();
+  }
+
   // Update
   async updateUser(id: string, updates: Partial<User>): Promise<User | null> {
     return this.userModel.findByIdAndUpdate(id, updates, { new: true }).exec();

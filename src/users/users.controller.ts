@@ -6,9 +6,11 @@ import {
   Param,
   Patch,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './user.schema';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('users')
 export class UsersController {
@@ -28,6 +30,14 @@ export class UsersController {
   @Get()
   async getAllUsers() {
     return this.usersService.getAllUsers();
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('profile')
+  getUserProfile() {
+    // This route is protected. Only valid JWTs can access.
+    // request.user will be attached with userId, email, etc.
+    return { message: 'Your protected profile data goes here' };
   }
 
   // READ ONE
