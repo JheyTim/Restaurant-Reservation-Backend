@@ -6,7 +6,7 @@ import { User } from 'src/users/user.schema';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
-  constructor(private authService: AuthService) {
+  constructor(private readonly authService: AuthService) {
     // By default, passport-local expects 'username' & 'password'
     // We override this to use 'email' instead
     super({ usernameField: 'email' });
